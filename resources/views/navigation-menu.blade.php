@@ -15,6 +15,11 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if(Auth::user()->hasRole('superadmin'))
+                        <x-nav-link href="{{ route('users-index') }}" :active="request()->routeIs('users-index')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -74,7 +79,7 @@
                 <!-- Settings Dropdown -->
                 <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
+                        <!--<x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                     <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
@@ -90,7 +95,7 @@
                                     </button>
                                 </span>
                             @endif
-                        </x-slot>
+                        </x-slot>-->
 
                         <x-slot name="content">
                             @if(Auth::user()->hasRole('superadmin'))
@@ -99,12 +104,11 @@
                                     {{ __('Manage Account') }}
                                 </div>
 
-                                <!--<x-dropdown-link href="{{ route('profile.show') }}">
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>-->
-                                <x-dropdown-link href="{{ route('users.index') }}">
-                                    {{ __('Users') }}
-                                </x-dropdown-link>
+                                @if(Auth::user()->hasRole('superadmin'))
+                                    <x-dropdown-link href="{{ route('users-index') }}">
+                                        {{ __('Users') }}
+                                    </x-dropdown-link>
+                                @endif
 
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                     <x-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -165,9 +169,12 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+
+                @if(Auth::user()->hasRole('superadmin'))
+                    <x-responsive-nav-link href="{{ route('users-index') }}" :active="request()->routeIs('users-index')">
+                        {{ __('Users') }}
+                    </x-responsive-nav-link>
+                    @endif
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">

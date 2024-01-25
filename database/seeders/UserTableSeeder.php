@@ -15,11 +15,11 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $role_superadmin = Role::create(['name' => 'superadmin']);
+        //$role_superadmin = Role::create(['name' => 'superadmin']);
         $role_admin = Role::create(['name' => 'admin']);
         $role_user = Role::create(['name' => 'user']);
 
-        Permission::create(['name' => 'view:role']);
+        /*Permission::create(['name' => 'view:role']);
         Permission::create(['name' => 'create:role']);
         Permission::create(['name' => 'edit:role']);
         Permission::create(['name' => 'delete:role']);
@@ -29,14 +29,14 @@ class UserTableSeeder extends Seeder
         Permission::create(['name' => 'view:user']);
         Permission::create(['name' => 'create:user']);
         Permission::create(['name' => 'edit:user']);
-        Permission::create(['name' => 'delete:user']);
+        Permission::create(['name' => 'delete:user']);*/
 
         $user = new User();
-        $user->name = 'SuperAdmin PAYMON';
-        $user->email = 'superadmin@paymon.test';
+        $user->name = 'Admin';
+        $user->email = 'admin@paymon.test';
         $user->password = bcrypt('12345678');
         $user->save();
 
-        $user->assignRole($role_superadmin);
+        $user->assignRole($role_admin);
     }
 }

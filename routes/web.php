@@ -21,6 +21,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    Route::get('/users', array('as' => 'users-index', 'uses' => 'UserController@index'));
+    //Route::get('/users', UserController::index())->name('users-index');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
